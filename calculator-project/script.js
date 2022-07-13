@@ -28,6 +28,7 @@ const evaluate = (stored, current, operator) => {
         default:
             result = current;
     }
+    return result;
 };
 
 // Variables to store calculation values
@@ -109,10 +110,9 @@ allClearBtn.addEventListener("click", () => {
     resetDisplay();
 });
 
+// for CE, clear last entry
 delBtn.addEventListener("click", () => {
-    display.textContent = display.textContent.slice(0, -1);
-
-    // currentOp =
+    display.textContent = display.textContent.slice(-1, 0);
 });
 
 // Number Buttons - takes value of button clicked and changes display
@@ -136,9 +136,9 @@ operationsBtns.forEach((operator) => {
     });
 });
 
-equalsBtn.addEventListener("click", (operator) => {
-    changeElementText(display.textContent, evaluate());
-});
+// equalsBtn.addEventListener("click", (operator) => {
+//     changeElementText(display.textContent, equals());
+// });
 
 // Special Buttons
 // % Divides displayed number by 100
