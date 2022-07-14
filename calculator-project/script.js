@@ -49,6 +49,7 @@ const pmBtn = document.getElementById("pm");
 // Resets text content of element to 0
 const resetDisplay = () => {
     changeElementText(0, display);
+    display.textContent = 0;
     storedVal = 0;
 };
 
@@ -75,7 +76,7 @@ const numClick = (num) => {
         }
     } else if (num === ".") {
         // If . is clicked and display is not 0 and not starting new number
-        // Concatenate '.' to displayed only if there is no . already
+        // Concatenate '.' to display only if there is no . already
         if (!display.textContent.includes(".")) {
             changeElementText(display.textContent + num, display);
         } // Else ignore
@@ -105,9 +106,10 @@ const equals = () => {
 };
 
 // Event Listeners
-// AC Button - resets display and clears memory
+// C Button - resets display and clears memory
 allClearBtn.addEventListener("click", () => {
     resetDisplay();
+    event.stopPropagation();
 });
 
 // for CE, clear last entry
@@ -117,10 +119,12 @@ delBtn.addEventListener("click", () => {
 
 // Number Buttons - takes value of button clicked and changes display
 numberBtns.forEach((numBtn) => {
+    // const event =
     numBtn.addEventListener("click", () => {
         const num = numBtn.textContent.trim();
         numClick(num);
     });
+    // return event;
 });
 
 // Operator Buttons -
