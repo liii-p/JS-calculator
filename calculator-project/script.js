@@ -40,7 +40,7 @@ let startNextInput = false;
 const display = document.querySelector("#calc-display");
 const allClearBtn = document.querySelector("#clear");
 const delBtn = document.querySelector("#del");
-const numberBtns = document.querySelectorAll(".calc__button");
+const numberBtns = document.querySelectorAll(".num");
 const operationsBtns = document.querySelectorAll(".special");
 const equalsBtn = document.querySelector("#equal");
 const pctBtn = document.getElementById("percent");
@@ -109,7 +109,6 @@ const equals = () => {
 // C Button - resets display and clears memory
 allClearBtn.addEventListener("click", () => {
     resetDisplay();
-    event.stopPropagation();
 });
 
 // for CE, clear last entry
