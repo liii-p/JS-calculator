@@ -106,13 +106,8 @@ numberBtns.forEach((numBtn) => {
 operationsBtns.forEach((operator) => {
     operator.addEventListener("click", () => {
         if (currentOp) {
-            const secondNum = display.innerText.split(currentOp)[1];
-            console.log("secondNum:", secondNum);
-            console.log(storedVal);
+            secondNum = display.innerText.split(currentOp)[1];
             display.innerText = evaluate(storedVal, secondNum, currentOp);
-            console.log(display.innerText);
-            currentOp = operator.innerText;
-            console.log(currentOp);
         }
 
         storedVal = display.innerText;
@@ -125,9 +120,9 @@ operationsBtns.forEach((operator) => {
 });
 
 equalsBtn.addEventListener("click", () => {
-    const secondNum = display.innerText.split(currentOp)[1];
+    secondNum = display.innerText.split(currentOp)[1];
     display.innerText = evaluate(storedVal, secondNum, currentOp);
-    console.log(display.innerText);
+    currentOp = "";
 });
 
 // Special Buttons

@@ -1,6 +1,7 @@
 For this calculator project, I want to emulate a pink calculator, refer to pink-calculator2.jpg
 
-CRITERIA
+## CRITERIA
+
 Using HTML & CSS:
 
 Create a calculator to be rendered to the html page
@@ -16,7 +17,13 @@ Handle decimals
 
 Should NOT use eval() or Function() constructor
 
-TO ACHIEVE THE DESIRED OUTCOME:
+## TO ACHIEVE THE DESIRED OUTCOME:
+
 After establishing HTML and CSS, each individual button will need to be scripted.
 The display needs to show zero as default and reset to zero when triggered.
 More advanced calculator functions such as 1/x and the memory storage may be implemented at a later time - first it is important to make the basic calculator functions - functional.
+
+## THE PROCESS
+
+As I wrote my code, I found that I relied on heavily interdependent code which consequently gave way to various bugs. I had to refactor my code so that it was more simplified, less interdependent to create independent 'cogs' which simultaneously could fit and work together to produce the desired outcome.
+A significant problem I had was working out the logic for chaining operations and making sure that the equals button actually resetted certain values. (Initially, equals did not reset the stored value which lead to a bug where the calculator would produce NaN because it still had the previous stored value.)
