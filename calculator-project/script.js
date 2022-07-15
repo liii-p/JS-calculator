@@ -1,14 +1,29 @@
 console.log("Hello World");
-
+​
+// Variables to store calculation values
+let storedVal = 0;
+let currentOp = "";
+let startNextInput = false;
+​
+// Variables for target elements
+const display = document.querySelector("#calc-display");
+const allClearBtn = document.querySelector("#clear");
+const delBtn = document.querySelector("#del");
+const numberBtns = document.querySelectorAll(".num");
+const operationsBtns = document.querySelectorAll(".special");
+const equalsBtn = document.querySelector("#equal");
+const pctBtn = document.getElementById("percent");
+const pmBtn = document.getElementById("pm");
+​
 // Changes text content of an element
 const changeElementText = (text, element) => {
-    element.textContent = text;
+    element.innerText = text;
 };
-
+​
 // Evaluate function
 const evaluate = (stored, current, operator) => {
     let result;
-
+​
     switch (operator) {
         case "+":
             result = Number(stored) + Number(current);
@@ -30,98 +45,57 @@ const evaluate = (stored, current, operator) => {
     }
     return result;
 };
-
-// Variables to store calculation values
-let storedVal = 0;
-let currentOp = "=";
-let startNextInput = false;
-
-// Variables for target elements
-const display = document.querySelector("#calc-display");
-const allClearBtn = document.querySelector("#clear");
-const delBtn = document.querySelector("#del");
-const numberBtns = document.querySelectorAll(".num");
-const operationsBtns = document.querySelectorAll(".special");
-const equalsBtn = document.querySelector("#equal");
-const pctBtn = document.getElementById("percent");
-const pmBtn = document.getElementById("pm");
-
+​
 // Resets text content of element to 0
 const resetDisplay = () => {
-    changeElementText(0, display);
-    display.textContent = 0;
+    display.innerText = "";
     storedVal = 0;
 };
-
+​
 // Changes display according to number passed
 const numClick = (num) => {
-    if (startNextInput === true || display.textContent === "3RR0R") {
-        // If a new number should be started
-        if (num === ".") {
-            // Change to 0. if . is clicked
-            changeElementText("0.", display);
-        } else {
-            // Else change to the new number
-            changeElementText(num, display);
-        }
-        startNextInput = false; // Reset startNextInput to false
-    } else if (display.textContent === "0") {
-        // If current display is zero
-        if (num === ".") {
-            // Change to 0. if . is clicked
-            changeElementText("0.", display);
-        } else {
-            // Else change to new number
-            changeElementText(num, display);
-        }
-    } else if (num === ".") {
-        // If . is clicked and display is not 0 and not starting new number
-        // Concatenate '.' to display only if there is no . already
-        if (!display.textContent.includes(".")) {
-            changeElementText(display.textContent + num, display);
-        } // Else ignore
-    } else if (display.textContent.length > 9) {
-        // If displayed number is 10+ characters
-        changeElementText("3RR0R", display);
-    } else {
-        // All other cases - concatenate new number to displayed
-        changeElementText(display.textContent + num, display);
-    }
+    // We need to grab the value for a num button
+    // we need to update the current number displayed
+​
+    display.innerText += num.innerText;
+    console.log(num.innerText);
 };
-
+​
 // Updates display when an operation is evaluated
 const equals = () => {
     // Store currently displayed value
-    const currentVal = display.textContent;
-
+    const currentVal = display.innerText;
+​
     // Evaluate the math operation using storedVal, currentVal, and current operator
     const result = evaluate(storedVal, currentVal, currentOp);
-
+    console.log(currentVal);
+​
     // Change the display to the new value
     changeElementText(result, display);
-
+​
     // Store the new value and allow the next input
     storedVal = result;
     startNextInput = true;
+    console.log("equals is called");
+    console.log(result);
 };
-
+​
 // Event Listeners
 // C Button - resets display and clears memory
 allClearBtn.addEventListener("click", () => {
     resetDisplay();
 });
-
+​
 // for CE, clear last entry
 delBtn.addEventListener("click", () => {
-    display.textContent = display.textContent.slice(-1, 0);
+    display.innerText = display.innerText.slice(-1, 0);
 });
-
+​
 // Number Buttons - takes value of button clicked and changes display
 numberBtns.forEach((numBtn) => {
     // const event =
-    numBtn.addEventListener("click", () => {
-        const num = numBtn.textContent.trim();
-        numClick(num);
+    numBtn.addEventListener("click", (event) => {
+        numClick(event.target);
     });
     // return event;
 });
@@ -131,25 +105,34 @@ numberBtns.forEach((numBtn) => {
 // and allowing next number to be input.
 operationsBtns.forEach((operator) => {
     operator.addEventListener("click", () => {
-        // Evaluate the previous operation first
-        equals();
+        if (currentOp) {
+            const secondNum = display.innerText.split(currentOp)[1];
+            console.log(secondNum);
+            console.log(storedVal);
+            display.innerText = evaluate(storedVal, secondNum, currentOp);
+            currentOp = operator.innerText;
+        }
 
+        storedVal = display.innerText;
         // Register the new operation
-        currentOp = operator.textContent;
+        currentOp = operator.innerText;
+        // Adds the operator on the screen
+        display.innerText += currentOp;
     });
 });
 
-// equalsBtn.addEventListener("click", (operator) => {
-//     changeElementText(display.textContent, equals());
-// });
+equalsBtn.addEventListener("click", (event) => {
+    const secondNum = display.innerText.split(currentOp)[1];
+    display.innerText = evaluate(storedVal, secondNum, currentOp);
+});
 
 // Special Buttons
 // % Divides displayed number by 100
 pctBtn.addEventListener("click", () => {
-    changeElementText(display.textContent / 100, display);
+    changeElementText(display.innerText / 100, display);
 });
 
 // +/- negates displayed number
 pmBtn.addEventListener("click", () => {
-    changeElementText(display.textContent * -1, display);
+    changeElementText(display.innerText * -1, display);
 });
