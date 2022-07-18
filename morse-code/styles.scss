@@ -1,0 +1,45 @@
+body {
+    background-color: #008080;
+}
+
+h1 {
+    color: white;
+    justify-content: center;
+}
+
+h3 {
+    color: white;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    font-size: large;
+    background-color: lightpink;
+    // align-items: center;
+    resize: none;
+    color: white;
+}
+
+#morseBox {
+    display: flex;
+}
+
+::placeholder {
+    color: white;
+}
+
+#translate {
+    display: flex;
+    height: fit-content;
+    padding: 10px;
+    align-content: center;
+    margin: auto 10px;
+}
+
+input {
+    color: white;
+}
