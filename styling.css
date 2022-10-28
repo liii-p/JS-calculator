@@ -1,0 +1,74 @@
+* {
+  color: white;
+  font-weight: 500;
+  font-family: Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+.calc {
+  height: 600px;
+  max-width: 425px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border-bottom: 4px solid #e6007e;
+  border-right: 4px solid #e6007e;
+  margin: 10vh auto 0 auto;
+  background-color: #f57dc4;
+  position: relative;
+}
+.calc__pad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+  width: 90%;
+  margin: 0 auto;
+}
+.calc__button {
+  line-height: 68px;
+  font-size: 2rem;
+  font-weight: 600;
+  width: 68px;
+  cursor: pointer;
+  background-color: #e6007e;
+  text-align: center;
+}
+.calc__button--border {
+  border-radius: 20px;
+  border-right: 2px solid #76717b;
+  border-bottom: 2px solid #76717b;
+}
+
+#calc-display {
+  background: #d8dbda;
+  border: solid 3px #76717b;
+  width: 90%;
+  height: 15%;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  display: flex;
+  margin-left: 20px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+}
+
+#zero {
+  grid-column: 1 / span 2;
+  grid-row: 6;
+  width: auto;
+}
+
+#equal {
+  grid-row: 5 / span 2;
+  grid-column: 5;
+}
+
+p {
+  color: black;
+  text-align: center;
+}
+
+/*# sourceMappingURL=styling.css.map */
