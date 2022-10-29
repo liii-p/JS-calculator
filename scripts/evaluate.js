@@ -20,5 +20,5 @@ export const evaluate = (stored, current, operator) => {
     default:
       result = current;
   }
-  return result;
+  return result.length > 10 ? result.toPrecision(5) : result;
 };

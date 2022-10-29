@@ -36,8 +36,11 @@ A significant problem I had was working out the logic for chaining operations an
 
 Added edge cases and optimised certain functions such as the reset display function which would reset the display to 0. However, this caused issues as upon inputting another number, the 0 would still be there which caused errors in calculations. So I simply set it to an empty string instead.
 
-## Future Additions
+## Future Fixes
 
 - User should not be able to input more than one zero at the beginning of the number (0000)
 - Creating the functionality for the memory buttons and the V button.
 - User can input infinite number of buttons, need to add edge case to control how many numbers can be inputted. As a temporary visual fix, overflow is set to hidden so that the numbers won't flow outside the calculator.
+- Doing calculations like 54 + 34% = NaN
+- Using the inverse button returns an extremely long result - need to shorten the return result.
+- Need to add memory function.

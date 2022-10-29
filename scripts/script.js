@@ -1,12 +1,22 @@
 import { hasManySymbols, validate } from "./validation.js";
 import { evaluate } from "./evaluate.js";
+import { changeElementText } from "./display-dom.js";
 
 // Variables to store calculation values
 let storedVal = 0;
 let currentOp = "";
-let startNextInput = false;
-let memVal = 0;
 let secondNum;
+let startNextInput = false;
+
+// Memory values
+let memRecall = 0;
+let mrcCount = 0;
+
+const memAddBtn = document.querySelector("#memAdd");
+const memMinusBtn = document.querySelector("#memMinus");
+const memRecallBtn = document.querySelector("#memRecall");
+const memClearBtn = document.querySelector("#memClear");
+const memStoreBtn = document.querySelector("#memStore");
 
 // Variables for target elements
 const display = document.querySelector("#calc-display");
@@ -17,28 +27,18 @@ const operationsBtns = document.querySelectorAll(".special");
 const equalsBtn = document.querySelector("#equal");
 const pctBtn = document.querySelector("#percent");
 const pmBtn = document.querySelector("#pm");
-const decimal = document.querySelector("#decimal");
-const zero = document.querySelector("#zero");
-
-// Changes text content of an element
-const changeElementText = (text, element) => {
-  element.innerText = text;
-};
+const decimalBtn = document.querySelector("#decimal");
+const zeroBtn = document.querySelector("#zero");
+const inverseBtn = document.querySelector("#inverse");
 
 // UPDATE DISPLAY
 
-// Resets text content
-const resetDisplay = () => {
-  display.innerText = "";
-  storedVal = "";
-};
-
-const delEntry = () => {
+export const delEntry = () => {
   display.innerText = display.innerText.slice(0, -1);
 };
 
 // Changes display according to number passed
-const numClick = (num) => {
+export const numClick = (num) => {
   // We need to grab the value for a num button
   // we need to update the current number displayed
 
@@ -46,23 +46,10 @@ const numClick = (num) => {
   console.log(num.innerText);
 };
 
-// Updates display when an operation is evaluated
-const equals = () => {
-  // Store currently displayed value
-  const currentVal = display.innerText;
-
-  // Evaluate the math operation using storedVal, currentVal, and current operator
-  const result = evaluate(storedVal, currentVal, currentOp);
-  console.log(currentVal);
-
-  // Change the display to the new value
-  changeElementText(result, display);
-
-  // Store the new value and allow the next input
-  storedVal = result;
-  startNextInput = true;
-  console.log("equals is called");
-  console.log(result);
+// Resets text content
+export const resetDisplay = () => {
+  display.innerText = "";
+  storedVal = "";
 };
 
 // CLEAR BUTTONS
@@ -107,12 +94,12 @@ operationsBtns.forEach((operator) => {
   });
 });
 
-zero.addEventListener("click", () => {
+zeroBtn.addEventListener("click", () => {
   if (display.innerText[0].includes("0")) {
   }
 });
 
-decimal.addEventListener("click", () => {
+decimalBtn.addEventListener("click", () => {
   if (display.innerText.includes(".")) {
   }
 
@@ -123,8 +110,6 @@ equalsBtn.addEventListener("click", () => {
   secondNum = display.innerText.split(currentOp)[1];
   display.innerText = evaluate(storedVal, secondNum, currentOp);
   currentOp = "";
-  // equals();
-  // currentOp = "";
 });
 
 // SPECIAL BUTTONS
@@ -138,6 +123,47 @@ pmBtn.addEventListener("click", () => {
   changeElementText(display.innerText * -1, display);
 });
 
+inverseBtn.addEventListener("click", () => {
+  changeElementText(1 / display.innerText, display);
+});
+
 // MEMORY
 
-// MS - Add displayed number to memory
+// M+ - Add displayed number to memory
+memAddBtn.addEventListener("click", () => {
+  memRecall += Number(display.innerText);
+
+  console.log(
+    `${display.innerText} added to memory. Current value in memory: ${memRecall}.`
+  );
+});
+
+memMinusBtn.addEventListener("click", () => {
+  memRecall -= Number(display.innerText);
+
+  console.log(
+    `${display.innerText} removed from memory. Current value in memory: ${memRecall}.`
+  );
+});
+
+memStoreBtn.addEventListener("click", () => {
+  confirm(
+    "This action will override the current stored memory. Are you sure you wish to continue?"
+  );
+  memRecall = Number(display.innerText);
+  console.log(
+    `Current memory storage overrided. ${display.innerText} added to memory.`
+  );
+});
+
+memRecallBtn.addEventListener("click", () => {
+  display.innerText += memRecall;
+
+  console.log("Memory recalled.");
+});
+
+memClearBtn.addEventListener("click", () => {
+  mrcCount = 0;
+
+  console.log("Memory cleared.");
+});
