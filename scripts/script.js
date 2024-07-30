@@ -95,15 +95,15 @@ operationsBtns.forEach((operator) => {
 });
 
 zeroBtn.addEventListener("click", () => {
-  if (display.innerText[0].includes("0")) {
+  if (!display.innerText[0].includes("0")) {
+    display.innerText = "0";
   }
 });
 
 decimalBtn.addEventListener("click", () => {
-  if (display.innerText.includes(".")) {
+  if (!display.innerText.includes(".")) {
+    display.innerText += ".";
   }
-
-  display.innerText += ".";
 });
 
 equalsBtn.addEventListener("click", () => {
@@ -124,8 +124,10 @@ pmBtn.addEventListener("click", () => {
 });
 
 inverseBtn.addEventListener("click", () => {
+  console.log(1 / display.innerText);
   changeElementText(1 / display.innerText, display);
 });
+
 
 // MEMORY
 
@@ -147,13 +149,14 @@ memMinusBtn.addEventListener("click", () => {
 });
 
 memStoreBtn.addEventListener("click", () => {
-  confirm(
+  if (window.confirm(
     "This action will override the current stored memory. Are you sure you wish to continue?"
-  );
-  memRecall = Number(display.innerText);
-  console.log(
-    `Current memory storage overrided. ${display.innerText} added to memory.`
-  );
+  )) {
+    memRecall = Number(display.innerText);
+    console.log(
+      `Current memory storage overrided. ${display.innerText} added to memory.`
+    );
+  }
 });
 
 memRecallBtn.addEventListener("click", () => {
