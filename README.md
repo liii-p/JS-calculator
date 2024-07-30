@@ -38,9 +38,12 @@ Added edge cases and optimised certain functions such as the reset display funct
 
 ## Future Fixes
 
-- User should not be able to input more than one zero at the beginning of the number (0000)
-- Creating the functionality for the memory buttons and the V button.
 - User can input infinite number of buttons, need to add edge case to control how many numbers can be inputted. As a temporary visual fix, overflow is set to hidden so that the numbers won't flow outside the calculator.
 - Doing calculations like 54 + 34% = NaN
 - Using the inverse button returns an extremely long result - need to shorten the return result.
+
+## Fixed Issues
+
+- User should not be able to input more than one zero at the beginning of the number (i.e. 0000)
 - Need to add memory function.
+- Creating the functionality for the memory buttons and the V button.

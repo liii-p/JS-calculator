@@ -95,9 +95,7 @@ operationsBtns.forEach((operator) => {
 });
 
 zeroBtn.addEventListener("click", () => {
-  if (!display.innerText[0].includes("0")) {
-    display.innerText = "0";
-  }
+  display.innerText += "0";
 });
 
 decimalBtn.addEventListener("click", () => {
